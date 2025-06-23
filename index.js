@@ -1,9 +1,9 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const path = require('path');
-require('dotenv').config();
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
@@ -11,6 +11,9 @@ if (!process.env.MONGO_URI || !process.env.UPLOAD_DIR) {
   console.error('❌ يرجى التأكد من تعريف جميع المتغيرات في ملف .env');
   process.exit(1);
 }
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -33,9 +36,9 @@ mongoose
   });
 
 // المسارات
-const bookRoutes = require('./routes/books');
-const authorRoutes = require('./routes/authors');
-const userRoutes = require('./routes/users');
+import bookRoutes from './routes/books.js';
+import authorRoutes from './routes/authors.js';
+import userRoutes from './routes/users.js';
 
 app.use('/books', bookRoutes);
 app.use('/authors', authorRoutes);
