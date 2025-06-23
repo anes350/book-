@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 const bookSchema = new mongoose.Schema({
   title: String,
   authors: [String],
-  date: String,
-  filePath: String,
-  summary: String,
+  fileUrl: String,
+  model: String,       // ⬅️ معيار نوع البحث (standard, recherche…)
+  category: String,    // ⬅️ معيار الفئة (sciences, littérature…)
+  userId: mongoose.Schema.Types.ObjectId,
   createdAt: { type: Date, default: Date.now }
 });
 
-const Book = mongoose.model('Book', bookSchema);
-export default Book;
+export default mongoose.model('Book', bookSchema);
