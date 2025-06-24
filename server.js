@@ -90,6 +90,10 @@ app.post('/summarize-pdf', upload.single('pdf'), async (req, res) => {
 
     if (req.file) {
       buffer = req.file.buffer;
+      const fileName = req.file.originalname;
+      const uploadPath = path.join(__dirname, '../frontend/uploads', fileName);
+      fs.writeFileSync(uploadPath, buffer);
+      fileUrl = `/uploads/${fileName}`;
     } else if (req.body.fileUrl) {
       fileUrl = req.body.fileUrl;
       const filePath = path.join(__dirname, '../frontend' + fileUrl);
@@ -105,19 +109,13 @@ app.post('/summarize-pdf', upload.single('pdf'), async (req, res) => {
 
     res.json({ summary });
 
-    // محاولة الحفظ فقط إذا userId موجود وصالح
-    if (fileUrl && userId && mongoose.isValidObjectId(userId)) {
-      try {
-        await SummarizedBook.findOneAndUpdate(
-          { fileUrl, userId },
-          { summary, updatedAt: new Date() },
-          { upsert: true }
-        );
-      } catch (err) {
-        console.error('❌ Erreur lors de l\'enregistrement du résumé:', err.message);
-      }
+    if (fileUrl && mongoose.Types.ObjectId.isValid(userId)) {
+      await SummarizedBook.findOneAndUpdate(
+        { fileUrl, userId: new mongoose.Types.ObjectId(userId) },
+        { summary, updatedAt: new Date(), title: path.basename(fileUrl), fileUrl },
+        { upsert: true }
+      );
     }
-
   } catch (err) {
     console.error('❌ Résumé PDF échoué:', err.message);
     if (!res.headersSent) {
@@ -125,7 +123,6 @@ app.post('/summarize-pdf', upload.single('pdf'), async (req, res) => {
     }
   }
 });
-
 
 
 
@@ -237,12 +234,13 @@ app.get('/books', async (req, res) => {
     const filter = {};
 
     // فلترة بالكلمة المفتاحية (عنوان أو مؤلف)
-    if (keyword && keyword.trim().length > 0) {
-      filter.$or = [
-        { title: { $regex: keyword, $options: 'i' } },
-        { authors: { $elemMatch: { $regex: keyword, $options: 'i' } } }
-      ];
-    }
+    if (keyword && keyword.trim().length > 0 && keyword.trim() !== 'L’impact des jeux de rôle sur le développement des compétences orales en FLE chez les élèves de 5e année primaire en Algérie : étude de cas dans la wilaya de Blida') {
+  filter.$or = [
+    { title: { $regex: keyword, $options: 'i' } },
+    { authors: { $elemMatch: { $regex: keyword, $options: 'i' } } }
+  ];
+}
+
 
     // فلترة النوع
     if (category && category !== 'all') filter.category = category;
