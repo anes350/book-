@@ -6,7 +6,7 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import userRoutes from './routes/users.js';
-import pdfjsLib from 'pdfjs-dist/legacy/build/pdf.js';
+import * as pdfjsLib from 'pdfjs-dist';
 import Book from './models/Book.js';
 import SummarizedBook from './models/SummarizedBook.js';
 
