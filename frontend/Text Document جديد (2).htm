@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Articles académiques et Essai</title>
+  <link rel="stylesheet" href="style.css" />
+<style>
+ html, body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f5f7fa;
+}
+
+.sidebar {
+  width: 240px;
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.sidebar a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  margin: 12px 0;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+button {
+  background: #1976d2;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #155a9c;
+}
+
+.editor-area {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+  background: #fafafa;
+  border-radius: 8px;
+  min-height: 300px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.toolbar button, .toolbar select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toolbar button:hover, .toolbar select:hover {
+  background: #e3e9f1;
+}
+
+.footer {
+  padding: 12px;
+  text-align: center;
+  background: #f1f1f1;
+  border-top: 1px solid #ddd;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #555;
+}
+
+.guide-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+
+.guide-btn:hover {
+  background: #174ea6;
+}
+
+
+</style>
+  <!-- Choices.js CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+</head>
+<body>
+  <div class="main-container">
+    <div class="sidebar">
+      <div class="section-title">
+        <img src="https://cdn-icons-png.flaticon.com/128/3135/3135715.png" width="22" style="vertical-align:middle;">
+        Articles académiques et essai
+        <span style="background:#2563eb;color:#fff;font-size:12px;padding:2px 8px;border-radius:8px;margin-left:8px;">Pro</span>
+        <span style="margin-left:auto;color:#f7b731;font-size:18px;cursor:pointer;">★</span>
+      </div>
+      <div class="section-desc">Créer un article académique avec citations et références</div>
+      <div class="input-group">
+        <label for="language">Langue</label>
+        <div class="custom-select">
+          <img id="selected-flag" class="flag" src="https://flagcdn.com/us.svg" alt="drapeau">
+          <select id="language" onchange="updateFlag()">
+            <option value="us" data-flag="https://flagcdn.com/us.svg">Anglais (USA)</option>
+            <option value="gb" data-flag="https://flagcdn.com/gb.svg">Anglais (UK)</option>
+            <option value="fr" data-flag="https://flagcdn.com/fr.svg">Français</option>
+            <option value="de" data-flag="https://flagcdn.com/de.svg">Allemand</option>
+            <option value="es" data-flag="https://flagcdn.com/es.svg">Espagnol</option>
+            <option value="it" data-flag="https://flagcdn.com/it.svg">Italien</option>
+            <option value="ru" data-flag="https://flagcdn.com/ru.svg">Russe</option>
+            <option value="tr" data-flag="https://flagcdn.com/tr.svg">Turc</option>
+            <option value="ar" data-flag="https://flagcdn.com/sa.svg">Arabe</option>
+            <option value="zh" data-flag="https://flagcdn.com/cn.svg">Chinois</option>
+            <option value="ja" data-flag="https://flagcdn.com/jp.svg">Japonais</option>
+            <option value="pt" data-flag="https://flagcdn.com/pt.svg">Portugais</option>
+            <option value="hi" data-flag="https://flagcdn.com/in.svg">Hindi</option>
+            <option value="id" data-flag="https://flagcdn.com/id.svg">Indonésien</option>
+            <option value="ko" data-flag="https://flagcdn.com/kr.svg">Coréen</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="topic">Sujet de l'essai académique</label>
+        <input id="topic" type="text" placeholder="Sujet de l'essai académique" />
+      </div>
+      <div class="input-group">
+        <label for="subheadings">Sous-titres</label>
+        <textarea id="subheadings" rows="3" placeholder="Sous-titres ou plans"></textarea>
+      </div>
+      <div class="input-group">
+        <label for="notes">Notes</label>
+        <textarea id="notes" rows="3" placeholder="Collez les notes, par ex. notes de cours pour extraire les points de l'essai"></textarea>
+      </div>
+      <div class="input-group">
+        <label for="ai-model">Modèle IA</label>
+        <select id="ai-model">
+          <option>DeepSeek V3</option>
+          <option>GPT-4 Turbo</option>
+          <option>Gemini 1.5 Pro</option>
+          <option>Llama 3</option>
+        </select>
+      </div>
+      <div style="display: flex; gap: 12px; margin-bottom: 18px;">
+        <div style="flex:1;">
+          <label for="tone">Ton de la voix <span title="Choisissez le ton d'écriture" style="cursor:help;color:#2563eb;">&#9432;</span></label>
+         <select id="tone">
+           <option>Professionnel</option>
+           <option>Excitant</option>
+           <option>Amical</option>
+           <option>Spirituel</option>
+           <option>Humoristique</option>
+           <option>Convaincant</option>
+           <option>Empathique</option>
+           <option>Inspirant</option>
+           <option>Solidaire</option>
+           <option>Fiable</option>
+           <option>Ludique</option>
+           <option>Excité</option>
+           <option>Positif</option>
+           <option>Négatif</option>
+           <option>Engageant</option>
+           <option>Inquiet</option>
+           <option>Urgent</option>
+           <option>Passionné</option>
+           <option>Informatif</option>
+           <option>Drôle</option>
+         </select>
+        </div>
+        <div style="flex:1;">
+          <label for="length">Longueur estimée du résultat <span title="Nombre de mots estimé" style="cursor:help;color:#2563eb;">&#9432;</span></label>
+          <input id="length" type="text" placeholder="2000" value="2000" />
+        </div>
+      </div>
+      <button id="generate-button" style="width:100%;background:#1976d2;color:#fff;padding:12px 0;border:none;border-radius:24px;font-size:18px;font-weight:500;box-shadow:0 2px 8px #2563eb22;cursor:pointer;margin-bottom:14px;">Générer</button>
+      <div style="background:#e0e0e0;color:#222;padding:12px 0;border-radius:14px;text-align:center;font-size:15px;">
+        Besoin de plus de mots ?<br>
+        <span style="color:#1976d2;font-weight:600;">Améliorez votre compte maintenant !</span>
+      </div>
+    </div>
+    <div class="content">
+      <div class="content-header">
+        <input type="text" value="Nouveau document" style="font-size:16px;padding:8px 12px;border-radius:7px;border:1px solid #e0e6ed;background:#f4f7fb;width:200px;margin-right:8px;">
+        <select style="font-size:16px;padding:8px 12px;border-radius:7px;border:1px solid #e0e6ed;background:#f4f7fb;width:200px;">
+          <option>Tous les carnets</option>
+        </select>
+      </div>
+      <div class="toolbar">
+        <button title="IA" style="background:#2563eb;color:#fff;">IA</button>
+        <button title="Paragraphe">✏️</button>
+        <select style="padding:6px 12px;border-radius:6px;border:1px solid #e0e6ed;">
+          <option>Paragraphe</option>
+          <option>Titre 1</option>
+          <option>Titre 2</option>
+          <option>Titre 3</option>
+        </select>
+        <button title="Gras"><b>B</b></button>
+        <button title="Italique"><i>I</i></button>
+        <button title="Souligné"><u>U</u></button>
+        <button title="Aligner à gauche" style="font-size:18px;">&#8592;</button>
+        <button title="Centrer" style="font-size:18px;">&#8596;</button>
+        <button title="Aligner à droite" style="font-size:18px;">&#8594;</button>
+        <button title="Liste">&#8226; Liste</button>
+        <button title="Liste numérotée">1. Liste</button>
+        <button title="Couleur de police" style="font-weight:bold;">A</button>
+        <button title="Surligner" style="font-weight:bold;">🖍️</button>
+        <button title="Image">🖼️</button>
+        <button title="Lien">🔗</button>
+        <button title="Code">&lt;/&gt;</button>
+        <button title="Plus" style="background:#e0e6ed;">...</button>
+      </div>
+      <div class="editor-area" contenteditable="true"></div>
+    </div>
+  </div>
+  <button class="guide-btn">❓ Guide</button>
+  <div class="footer">
+    &copy; 2025 Assistant Académique | Propulsé par l'IA
+  </div>
+  <script>
+    // Mettre à jour le drapeau lors du changement de langue
+    function updateFlag() {
+      var select = document.getElementById('language');
+      var flagUrl = select.options[select.selectedIndex].getAttribute('data-flag');
+      document.getElementById('selected-flag').src = flagUrl;
+    }
+  </script>
+  <!-- Choices.js JS -->
+<script src="script.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+</body>
+</html>

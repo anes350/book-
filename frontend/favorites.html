@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المفضلة - Sidoubook</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <style>
+    /* تنسيق اللوجو */
+    .logo-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .logo-container img {
+      max-width: 150px; /* حجم الصورة */
+      height: 150px; /* نفس قيمة العرض لجعلها دائرية */
+      border-radius: 50%; /* لجعل الصورة دائرية */
+      border: 3px solid #007bff; /* إطار أزرق حول الصورة */
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* ظل خفيف */
+    }
+
+    /* شريط التنقل */
+    .navbar {
+      margin-top: 10px; /* مسافة بين اللوجو والشريط */
+    }
+  </style>
+
+<!-- اللوجو فوق الشريط -->
+<div class="logo-container">
+  <img src="images/logo.png" alt="E-LibraSmart Logo">
+</div>
+
+<!-- شريط التنقل -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <a class="navbar-brand" href="index.html">E-LibraSmart</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link text-dark" href="index.html">الرئيسية</a></li>
+      <li class="nav-item"><a class="nav-link text-dark" href="authors.html">المؤلفون</a></li>
+      <li class="nav-item"><a class="nav-link text-dark" href="books.html">الكتب</a></li>
+      <li class="nav-item"><a class="nav-link text-dark" href="favorites.html">المفضلة</a></li>
+      <li class="nav-item">
+        <a class="btn btn-primary ml-3" href="login.html">تسجيل الدخول</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+  <div class="container mt-5">
+    <h2 class="mb-4">الكتب المفضلة</h2>
+    <div class="row" id="favorites-list">
+      <!-- الكتب المفضلة ستظهر هنا باستخدام بطاقات Bootstrap -->
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="favorites.js"></script>
+</body>
+</html>

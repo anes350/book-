@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Archilibrex</title>
+  <style>
+   * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f7f7;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  animation: slideIn 0.8s ease-out;
+}
+
+header img {
+  height: 45px;
+  margin-right: 12px;
+}
+
+header h1 {
+  font-size: 26px;
+  color: #3b0080;
+  margin: 0;
+}
+
+.subtitle {
+  text-align: center;
+  font-style: italic;
+  margin-top: 15px;
+  color: #444;
+}
+
+.container {
+  padding: 30px;
+}
+
+.generator-box {
+  background-color: #eddcff;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
+.generator-box h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-transform: lowercase;
+}
+
+.input-settings-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.prompt-input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  margin-right: 15px;
+}
+
+.toggle-settings-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  color: #6000c3;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.toggle-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6000c3;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #e5d3ff;
+}
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+select, input[type="text"], input[type="number"] {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  min-width: 180px;
+  flex: 1;
+}
+
+.generate-button {
+  background-color: #6000c3;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  float: right;
+  margin-top: 20px;
+}
+
+.generate-button:hover {
+  background-color: #4a009e;
+}
+
+.result-section {
+  margin-top: 50px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100%;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding-top: 100px;
+  transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+  width: 250px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  color: #222;
+  text-decoration: none;
+  padding: 10px 20px;
+  transition: background 0.3s;
+  white-space: nowrap;
+}
+
+.sidebar a:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar a i {
+  margin-right: 0;
+  min-width: 10px;
+  text-align: center;
+}
+
+.sidebar span.label {
+  opacity: 0;
+  margin-left: 0;
+  transition: opacity 0.3s ease, margin-left 0.3s ease;
+}
+
+.sidebar:hover span.label {
+  opacity: 1;
+  margin-left: 10px;
+}
+
+.content {
+  margin-left: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar:hover + .content {
+  margin-left: 220px;
+}
+
+.warning {
+  color: #a94442;
+  background-color: #f8d7da;
+  border-left: 4px solid #f5c2c7;
+  padding: 6px 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  border-radius: 6px;
+  display: none;
+  animation: fadeSlideIn 0.3s ease forwards;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#settings-container.hidden {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#settings-container.show {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+  opacity: 1;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <nav>
+      <a href="#"><i>🔍</i><span class="label">recherche documentaire</span></a>
+      <a href="My PDF Library.html"><i>📚</i><span class="label">Ma bibliothèque</span></a>
+      <a href="Text Document جديد (2).htm"><i>📝</i><span class="label">Articles académiques et essai</span></a>
+      <a href="/summarize.html"><i>💬</i><span class="label">Chat avec PDF</span></a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <header>
+      <img src="images/1742768949697.png" alt="Logo Archilibrex" />
+      <h1>Archilibrex</h1>
+    </header>
+
+    <p class="subtitle">La recherche documentaire, comme vous l’imaginez</p>
+
+    <div class="container">
+      <div class="generator-box">
+        <h2>expliquer ton idée</h2>
+       <div class="input-settings-wrapper">
+  <input type="text" class="prompt-input" placeholder="L’impact des jeux de rôle sur le développement des compétences orales en FLE chez les élèves de 5e année primaire en Algérie : étude de cas dans la wilaya de Blida " />
+  <div class="toggle-settings-container" id="toggle-settings-container" title="Paramètres avancés">
+    <button id="toggle-settings" class="toggle-button" aria-label="Afficher/Masquer Paramètres avancés">+</button>
+    <span>Paramètres avancés</span>
+  </div>
+</div>
+
+        <div id="settings-container" class="settings hidden">
+          <select name="model">
+            <option>none</option>
+            <option>standard</option>
+            <option>haute qualité</option>
+            <option>deep review</option>
+          </select>
+
+          <select name="category">
+            <option>none</option>
+            <option>livre</option>
+            <option>article</option>
+            <option>mémoire</option>
+            <option>thèse</option>
+            <option>littérature</option>
+          </select>
+
+          <select id="year-range">
+  <option value="">année</option>
+  <option value="3">les 3 dernières années</option>
+  <option value="5">les 5 dernières années</option>
+  <option value="custom">personnalisée</option>
+</select>
+
+<!-- تظهر فقط عند اختيار personnalisée -->
+<div id="custom-year-inputs" style="display: none; margin-top: 10px;">
+  <label>De :</label>
+  <input type="number" id="start-year" placeholder="ex: 2018" min="1900" max="2099" />
+  <label>À :</label>
+  <input type="number" id="end-year" placeholder="ex: 2023" min="1900" max="2099" />
+</div>
+
+          
+          <select>
+            <option>nombre</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>tous les résultats</option>
+          </select>
+        </div>
+
+        <button class="generate-button">générer</button>
+      </div>
+
+      <div class="result-section">
+        <h3>Résultat</h3>
+<div class="results" id="results-section"></div>
+
+
+      </div>
+    </div>
+  </div>
+<script>
+  const userId = localStorage.getItem('userId') || '';
+  const selects = document.querySelectorAll('.settings select');
+  const generateBtn = document.querySelector('.generate-button');
+  const toggleBtn = document.getElementById('toggle-settings'); // ← السطر المفقود
+  const settingsBox = document.getElementById('settings-container');
+
+  generateBtn.disabled = false;
+
+  selects.forEach(select => {
+    const warning = document.createElement('div');
+    warning.className = 'warning';
+    warning.innerHTML = '⚠️ Veuillez sélectionner une option.';
+    warning.style.display = 'none';
+    select.parentNode.appendChild(warning);
+
+    select.addEventListener('change', () => {
+      if (select.selectedIndex > 0) {
+        warning.style.display = 'none';
+      }
+    });
+  });
+
+ generateBtn.addEventListener('click', function (e) {
+  // إذا كانت الإعدادات مخفية، إظهارها تلقائياً عند الضغط على "générer"
+  if (settingsBox.classList.contains('hidden')) {
+    settingsBox.classList.remove('hidden');
+    settingsBox.classList.add('show');
+    toggleBtn.textContent = '−';
+    e.preventDefault();
+    return;
+  }
+
+  // التحقق من القوائم المنسدلة
+  let allValid = true;
+
+  selects.forEach(select => {
+    const warning = select.parentNode.querySelector('.warning');
+    if (select.selectedIndex === 0) {
+      warning.style.display = 'block';
+      warning.classList.remove('warning');
+      void warning.offsetWidth;
+      warning.classList.add('warning');
+      allValid = false;
+    } else {
+      warning.style.display = 'none';
+    }
+  });
+
+  if (!allValid) {
+    e.preventDefault();
+    return;
+  }
+
+  // ✅ البحث بعد التأكد من صحة الحقول
+  const keyword = document.querySelector('.prompt-input').value.trim();
+const selectsArray = Array.from(document.querySelectorAll('.settings select'));
+const [model, category, yearRange, count] = selectsArray.map(s => s.value);
+let startYear = '';
+let endYear = '';
+if (yearRange === 'custom') {
+  startYear = document.getElementById('start-year').value;
+  endYear = document.getElementById('end-year').value;
+}
+const queryParams = new URLSearchParams({
+  keyword,
+  model,
+  category,
+  yearRange,
+  startYear,
+  endYear,
+  count
+});
+
+
+fetch(`http://localhost:5000/books?${queryParams.toString()}`)
+
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('results-section');
+      container.innerHTML = '';
+
+      if (data.length === 0) {
+        container.innerHTML = '<p>Aucun résultat trouvé.</p>';
+        return;
+      }
+
+    data.forEach((book, index) => {
+  const authorsText = book.authors.join(', ');
+  const html = `
+    <div class="book-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 10px;">
+      <div><strong>${index + 1}. <a href="/summarize.html?file=${encodeURIComponent(book.fileUrl)}&userId=${encodeURIComponent(userId)}">${book.title}</a></strong></div>
+      <div style="color: #666;">${authorsText}</div>
+      <div style="font-size: 13px; color: #888;">${new Date(book.createdAt).toDateString()}</div>
+      <div style="margin-top: 10px;">
+        <a href="/summarize.html?file=${encodeURIComponent(book.fileUrl)}&tab=summary&userId=${encodeURIComponent(userId)}" class="btn">📝 Summary</a>
+        <a href="/summarize.html?file=${encodeURIComponent(book.fileUrl)}&tab=chat&userId=${encodeURIComponent(userId)}" class="btn">💬 Chat</a>
+      </div>
+    </div>
+  `;
+  container.innerHTML += html;
+});
+
+    });
+});
+function switchTab(tab) {
+    document.getElementById('tab-pdf').classList.remove('active-tab');
+    document.getElementById('tab-summary').classList.remove('active-tab');
+    document.getElementById('pdf-panel').style.display = 'none';
+    document.getElementById('summary-panel').style.display = 'none';
+
+    if (tab === 'pdf') {
+      document.getElementById('tab-pdf').classList.add('active-tab');
+      document.getElementById('pdf-panel').style.display = 'block';
+    } else if (tab === 'summary') {
+      document.getElementById('tab-summary').classList.add('active-tab');
+      document.getElementById('summary-panel').style.display = 'block';
+    }
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const fileUrl = urlParams.get('file');
+  const tab = urlParams.get('tab') || 'pdf';
+
+  if (fileUrl) {
+    document.getElementById('upload-screen').style.display = 'none';
+    document.getElementById('viewer-screen').style.display = 'block';
+    document.getElementById('pdf-viewer').src = fileUrl;
+    document.getElementById('pdf-name').textContent = 'Fichier : ' + decodeURIComponent(fileUrl);
+    switchTab(tab);
+  }
+  async function openAndSummarize(fileUrl) {
+  try {
+    const res = await fetch(fileUrl);
+    const blob = await res.blob();
+    const formData = new FormData();
+    formData.append('pdf', blob, 'document.pdf');
+
+    const summaryRes = await fetch('http://localhost:5000/summarize-pdf', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await summaryRes.json();
+    const summary = encodeURIComponent(data.summary);
+
+    // انتقل إلى صفحة summarize.html مع تمرير الملخص مباشرة
+    window.location.href = `/summarize.html?summary=${summary}`;
+  } catch (error) {
+    console.error('❌ خطأ أثناء تحميل وتلخيص الملف:', error);
+    alert("Erreur lors du chargement ou du résumé du fichier.");
+  }
+}
+fetch('http://localhost:5000/summarize-pdf', {
+  method: 'POST',
+  body: formData
+});
+
+
+</script>
+<script>
+async function openAndSummarize(fileUrl) {
+  try {
+    const res = await fetch(fileUrl);
+    const blob = await res.blob();
+    const formData = new FormData();
+    formData.append('pdf', blob, 'document.pdf');
+
+    const summaryRes = await fetch('http://localhost:5000/summarize-pdf', {
+      method: 'POST',
+      body: formData
+    });
+
+    const data = await summaryRes.json();
+    const summary = encodeURIComponent(data.summary);
+    window.location.href = `/summarize.html?summary=${summary}`;
+  } catch (error) {
+    console.error('❌ خطأ أثناء التحميل أو التلخيص:', error);
+    alert("حدث خطأ أثناء التلخيص.");
+  }
+}
+
+
+</script>
+<script>
+document.getElementById('year-range').addEventListener('change', (e) => {
+  const val = e.target.value;
+  const customDiv = document.getElementById('custom-year-inputs');
+  if (val === 'custom') {
+    customDiv.style.display = 'block';
+  } else {
+    customDiv.style.display = 'none';
+  }
+});
+</script>
+
+</body>
+</html>

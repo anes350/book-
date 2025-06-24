@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ميزة تلخيص النصوص</title>
+</head>
+<body>
+    <h1>تلخيص النصوص</h1>
+    <textarea id="inputText" rows="6" cols="50" placeholder="أدخل النص هنا"></textarea><br><br>
+    <button onclick="summarizeText()">لخص النص</button>
+    <h2>الملخص:</h2>
+    <p id="summaryResult"></p>
+
+    <script>
+        async function summarizeText() {
+            const text = document.getElementById('inputText').value;
+            const response = await fetch('http://127.0.0.1:5000/summarize', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+            const data = await response.json();
+            document.getElementById('summaryResult').innerText = data.summary || data.error;
+        }
+    </script>
+</body>
+</html>

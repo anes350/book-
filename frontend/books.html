@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>الكتب - Sidoubook</title>
+  <!-- ربط مكتبة Bootstrap للأنماط -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ربط ملف الأنماط الخاص بك -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- شريط التنقل (Navbar) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Sidoubook</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto"> <!-- استخدام ml-auto لتحريك العناصر إلى اليمين -->
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">الرئيسية</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="authors.html">المؤلفون</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="books.html">الكتب <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="favorites.html">المفضلة</a>
+        </li>
+        <li class="nav-item" id="loginNavItem">
+          <a class="nav-link" href="login.html">تسجيل الدخول</a>
+        </li>
+        <li class="nav-item" id="registerNavItem">
+          <a class="nav-link" href="register.html">تسجيل جديد</a>
+        </li>
+        <li class="nav-item" id="logoutNavItem" style="display: none;">
+          <a class="nav-link" href="#" onclick="logout()">تسجيل الخروج</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- محتوى الصفحة -->
+  <div class="container mt-5">
+    <h2>الكتب</h2>
+    <!-- رسالة للتفاعل مع المستخدم -->
+    <div id="message" class="mt-3"></div>
+    <!-- زر لإضافة كتاب جديد (للمشرفين فقط) -->
+    <div class="mb-3" id="addBookButtonContainer" style="display: none;">
+      <button class="btn btn-success" onclick="openAddBookModal()">إضافة كتاب جديد</button>
+    </div>
+    <!-- قائمة الكتب ستظهر هنا -->
+    <div id="booksList" class="row">
+      <!-- سيتم عرض الكتب هنا بواسطة books.js -->
+    </div>
+  </div>
+
+  <!-- نموذج إضافة كتاب جديد (Modal) -->
+  <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="addBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="addBookForm" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addBookModalLabel">إضافة كتاب جديد</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="إغلاق">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="title">عنوان الكتاب</label>
+              <input type="text" class="form-control" id="title" name="title" required placeholder="أدخل عنوان الكتاب">
+            </div>
+            <div class="form-group">
+              <label for="author">المؤلف</label>
+              <select class="form-control" id="author" name="author" required>
+                <option value="">اختر المؤلف</option>
+                <!-- سيتم ملء الخيارات بواسطة books.js -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="category">الفئة</label>
+              <input type="text" class="form-control" id="category" name="category" required placeholder="أدخل فئة الكتاب">
+            </div>
+            <div class="form-group">
+              <label for="description">الوصف</label>
+              <textarea class="form-control" id="description" name="description" rows="3" placeholder="أدخل وصف الكتاب"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="coverImage">صورة غلاف الكتاب</label>
+              <input type="file" class="form-control-file" id="coverImage" name="coverImage" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label for="downloadLink">رابط تنزيل الكتاب (PDF)</label>
+              <input type="file" class="form-control-file" id="downloadLink" name="downloadLink" accept="application/pdf">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+            <button type="submit" class="btn btn-primary">إضافة الكتاب</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- نموذج تعديل كتاب (Modal) -->
+  <div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="editBookForm" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editBookModalLabel">تعديل معلومات الكتاب</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="إغلاق">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="editBookId" name="editBookId">
+            <div class="form-group">
+              <label for="editTitle">عنوان الكتاب</label>
+              <input type="text" class="form-control" id="editTitle" name="editTitle" required placeholder="أدخل عنوان الكتاب">
+            </div>
+            <div class="form-group">
+              <label for="editAuthor">المؤلف</label>
+              <select class="form-control" id="editAuthor" name="editAuthor" required>
+                <option value="">اختر المؤلف</option>
+                <!-- سيتم ملء الخيارات بواسطة books.js -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="editCategory">الفئة</label>
+              <input type="text" class="form-control" id="editCategory" name="editCategory" required placeholder="أدخل فئة الكتاب">
+            </div>
+            <div class="form-group">
+              <label for="editDescription">الوصف</label>
+              <textarea class="form-control" id="editDescription" name="editDescription" rows="3" placeholder="أدخل وصف الكتاب"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="editCoverImage">صورة غلاف الكتاب</label>
+              <input type="file" class="form-control-file" id="editCoverImage" name="editCoverImage" accept="image/*">
+            </div>
+            <div class="form-group">
+              <label for="editDownloadLink">رابط تنزيل الكتاب (PDF)</label>
+              <input type="file" class="form-control-file" id="editDownloadLink" name="editDownloadLink" accept="application/pdf">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
+            <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ربط مكتبة jQuery و Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- ربط ملف JavaScript الخاص بالكتب -->
+  <script src="books.js"></script>
+  <!-- ربط ملف JavaScript الخاص بالشريط التنقل وإدارة حالة تسجيل الدخول -->
+  <script src="main.js"></script>
+</body>
+</html>

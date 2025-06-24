@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إضافة كتاب جديد - Sidoubook</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Sidoubook</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">الرئيسية</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="addBook.html">إضافة كتاب</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="authors.html">المؤلفون</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="favorites.html">المفضلة</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">تسجيل الدخول</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2>إضافة كتاب جديد</h2>
+    <form id="addBookForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="title">عنوان الكتاب</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+      <div class="form-group">
+        <label for="author">المؤلف</label>
+        <select class="form-control" id="author" name="author" required>
+          <option value="">اختر مؤلفًا</option>
+          <!-- أسماء المؤلفين ستأتي هنا من الخادم -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="category">الفئة</label>
+        <input type="text" class="form-control" id="category" name="category" required>
+      </div>
+      <div class="form-group">
+        <label for="description">الوصف</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="coverImage">صورة الغلاف</label>
+        <input type="file" class="form-control-file" id="coverImage" name="coverImage" accept="image/*" required>
+      </div>
+      <div class="form-group">
+        <label for="downloadLink">ملف الكتاب</label>
+        <input type="file" class="form-control-file" id="downloadLink" name="downloadLink" accept=".pdf,.epub,.mobi" required>
+      </div>
+      <button type="submit" class="btn btn-primary">إضافة الكتاب</button>
+    </form>
+    <div id="message" class="mt-3"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="addBook.js"></script>
+</body>
+</html>

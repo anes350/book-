@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Books</title>
+  <link rel="stylesheet" href="search.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="search.js" defer></script>
+  
+</head>
+<body>
+   
+  <!-- شريط التنقل -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <a class="navbar-brand" href="index.html">Archilibrex</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="search.html">Recherche</a></li>
+        <li class="nav-item">
+          <a class="btn btn-primary ml-3" href="login.html">Se connecter</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="main-container">
+    <!-- الجدول الجانبي -->
+    <div class="sidebar" id="sidebar">
+      <button class="toggle-sidebar-btn" id="toggleSidebarBtn">&#9664;</button>
+      <ul class="sidebar-list">
+        <li><a href="#">Recherche Documentaire</a></li>
+        <li><a href="#">Recherche Thématique</a></li>
+        <li><a href="#">Chat avec PDF</a></li>
+        <li><a href="#">Ma Bibliothèque</a></li>
+        <li><a href="#">Ajouter un Livre</a></li>
+      </ul>
+    </div>
+
+    <!-- حاوية المحتوى الرئيسي -->
+    <div class="content">
+      <!-- شريط البحث -->
+      <div class="search-container">
+        <h1>Rechercher un livre</h1>
+        <div class="search-bar">
+          <input type="text" id="searchInput" class="search-input" placeholder="Rechercher un livre...">
+          <button id="searchButton" class="search-button">Rechercher</button>
+        </div>
+      </div>
+
+      <!-- قسم عرض النتائج -->
+      <div id="bookListContainer" class="book-list-container" style="display: none;">
+        <h3>Résultats de recherche :</h3>
+        <div id="bookList" class="book-list"></div>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

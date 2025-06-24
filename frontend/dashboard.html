@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم</title>
+</head>
+<body>
+  <h1 id="welcome"></h1>
+  <button onclick="logout()">تسجيل الخروج</button>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("يجب تسجيل الدخول أولاً.");
+      window.location.href = "login.html";
+    } else {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      document.getElementById("welcome").innerText = `مرحباً ${payload.role} 👋`;
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

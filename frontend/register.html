@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تسجيل جديد - Sidoubook</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Sidoubook</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">الرئيسية</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="authors.html">المؤلفون</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="books.html">الكتب</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="favorites.html">المفضلة</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">تسجيل الدخول</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="register.html">تسجيل جديد <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2>تسجيل جديد</h2>
+    <div id="message" class="mt-3"></div>
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="username">اسم المستخدم</label>
+        <input type="text" class="form-control" id="username" name="username" required placeholder="أدخل اسم المستخدم">
+      </div>
+      <div class="form-group">
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" class="form-control" id="email" name="email" required placeholder="أدخل بريدك الإلكتروني">
+      </div>
+      <div class="form-group">
+        <label for="password">كلمة المرور</label>
+        <input type="password" class="form-control" id="password" name="password" required placeholder="أدخل كلمة المرور">
+      </div>
+      <!-- إذا كنت تريد السماح بتحديد دور المستخدم، يمكنك إضافة هذا الحقل. ولكن كما ذكرت سابقًا، يفضل عدم السماح للمستخدمين بتحديد دورهم الخاص. -->
+      <!-- 
+      <div class="form-group">
+        <label for="role">الدور</label>
+        <select class="form-control" id="role" name="role">
+          <option value="user" selected>مستخدم</option>
+          <option value="admin">مشرف</option>
+        </select>
+      </div>
+      -->
+      <button type="submit" class="btn btn-primary">تسجيل</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="register.js"></script>
+</body>
+</html>

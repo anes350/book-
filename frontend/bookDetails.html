@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تفاصيل الكتاب - Sidoubook</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Sidoubook</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">الرئيسية</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="addBook.html">إضافة كتاب</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">المؤلفون</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">المفضلة</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">تسجيل الدخول</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <div id="book-details">
+      <!-- تفاصيل الكتاب ستظهر هنا -->
+    </div>
+
+    <!-- قسم التقييمات -->
+    <div class="mt-4">
+      <h4>تقييم الكتاب</h4>
+      <form id="ratingForm">
+        <div class="form-group">
+          <label for="rating">اختر تقييمك:</label>
+          <select class="form-control" id="rating" name="rating" required>
+            <option value="">اختر</option>
+            <option value="1">1 نجمة</option>
+            <option value="2">2 نجمتين</option>
+            <option value="3">3 نجوم</option>
+            <option value="4">4 نجوم</option>
+            <option value="5">5 نجوم</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success">تقييم</button>
+      </form>
+      <div id="ratingMessage" class="mt-2"></div>
+    </div>
+
+    <!-- قسم التعليقات -->
+    <div class="mt-4">
+      <h4>إضافة تعليق</h4>
+      <form id="commentForm">
+        <div class="form-group">
+          <label for="comment">تعليقك:</label>
+          <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary">إضافة تعليق</button>
+      </form>
+      <div id="commentMessage" class="mt-2"></div>
+    </div>
+
+    <!-- عرض التعليقات -->
+    <div class="mt-4">
+      <h4>التعليقات</h4>
+      <div id="commentsList">
+        <!-- التعليقات ستظهر هنا -->
+      </div>
+    </div>
+
+    <!-- قسم قراءة الكتاب إذا كان PDF -->
+    <div class="mt-4" id="readBookSection" style="display: none;">
+      <h4>قراءة الكتاب</h4>
+      <canvas id="pdf-render"></canvas>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <script src="bookDetails.js"></script>
+</body>
+</html>

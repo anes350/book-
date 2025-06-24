@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إضافة مؤلف جديد - Sidoubook</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Sidoubook</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">الرئيسية</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="addBook.html">إضافة كتاب</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="authors.html">المؤلفون</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">المفضلة</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">تسجيل الدخول</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5">
+    <h2>إضافة مؤلف جديد</h2>
+    <form id="addAuthorForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="name">اسم المؤلف</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="bio">السيرة الذاتية</label>
+        <textarea class="form-control" id="bio" name="bio" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="photo">صورة المؤلف</label>
+        <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*">
+      </div>
+      <button type="submit" class="btn btn-primary">إضافة المؤلف</button>
+    </form>
+    <div id="message" class="mt-3"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="addAuthor.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat avec PDF</title>
+  <link rel="stylesheet" href="summarize.css" />
+</head>
+<body>
+
+  <div id="upload-screen" class="start-screen">
+    <h1>Chat avec PDF</h1>
+    <label class="upload-btn">
+      Télécharger le fichier PDF
+      <input type="file" id="pdf-upload" accept="application/pdf" hidden />
+    </label>
+  </div>
+  <button id="speak-btn">🔊 استمع للملخص</button>
+
+
+  <div id="viewer-screen" style="display:none">
+    <div class="header">
+      <h1 id="tab-pdf" class="active-tab" onclick="switchTab('pdf')">PDF file</h1>
+      <h1 id="tab-summary" onclick="switchTab('summary')">Summary</h1>
+    </div>
+
+    <div class="container">
+      <div class="left-panel" id="pdf-panel">
+        <p id="pdf-name">Fichier : </p>
+        <iframe id="pdf-viewer" width="100%" height="500px"></iframe>
+      </div>
+
+      <div class="left-panel" id="summary-panel" style="display:none">
+        <textarea id="summary" readonly placeholder="Résumé apparaîtra ici..."></textarea>
+        <button id="download-btn" onclick="downloadSummary()" style="display: none;">Télécharger le résumé</button>
+      </div>
+
+      <div class="right-panel">
+        <div class="chat-tags">
+          <button onclick="insertQuestion('Résumé')">Résumé</button>
+          <button onclick="insertQuestion('Méthodologie')">Méthodologie</button>
+          <button onclick="insertQuestion('Résultats')">Résultats</button>
+          <button onclick="insertQuestion('Conclusion')">Conclusion</button>
+        </div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="chat-input">
+          <input type="text" id="chat-input" placeholder="Posez une question..." />
+          <button onclick="sendQuestion()">Envoyer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="summarize.js"></script>
+</body>
+</html>
