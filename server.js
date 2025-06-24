@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import multer from 'multer';
-import path from 'path';
 import { fileURLToPath } from 'url';
 import userRoutes from './routes/users.js';
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
@@ -208,7 +207,7 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/archilibrex
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'login.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 app.get('/summarized-books', async (req, res) => {
@@ -296,5 +295,38 @@ async function extractTextFromPDFUrl(driveUrl) {
 
   return fullText;
 }
+import fs from 'fs';
+import path from 'path';
+import { Extract } from 'node-unrar-js';
+
+const uploadsDir = path.join(__dirname, 'frontend', 'uploads');
+
+// التأكد أن مجلد uploads موجود
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+    console.log('✅ مجلد uploads تم إنشاؤه');
+}
+
+// قائمة الأرشيفات المضغوطة التي تحتاج فكها
+const archives = [
+    'Dictionnaire.part1.rar',
+    'livre.part1.rar'
+];
+
+// فك الضغط لكل أرشيف
+archives.forEach(archiveFile => {
+    const archivePath = path.join(uploadsDir, archiveFile);
+    if (fs.existsSync(archivePath)) {
+        console.log(`🛠️ بدء فك ضغط: ${archiveFile}`);
+        const extractor = new Extract(fs.readFileSync(archivePath));
+        const extracted = extractor.extract();
+        
+        extracted.files.forEach(file => {
+            const outputPath = path.join(uploadsDir, file.fileHeader.name);
+            fs.writeFileSync(outputPath, file.extract());
+        });
+        console.log(`✔️ تم فك ضغط: ${archiveFile}`);
+    }
+});
 
 
