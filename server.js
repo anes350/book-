@@ -296,7 +296,9 @@ async function extractTextFromPDFUrl(driveUrl) {
   return fullText;
 }
 import path from 'path';
-import { Extract } from 'node-unrar-js';
+import pkg from 'node-unrar-js';
+const { Extract } = pkg;
+
 
 const uploadsDir = path.join(__dirname, 'frontend', 'uploads');
 
