@@ -295,7 +295,6 @@ async function extractTextFromPDFUrl(driveUrl) {
 
   return fullText;
 }
-import fs from 'fs';
 import path from 'path';
 import { Extract } from 'node-unrar-js';
 
